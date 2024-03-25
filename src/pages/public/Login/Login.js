@@ -1,9 +1,130 @@
-import React from 'react'
+import React, { useState } from "react";
+import "./style.css";
+import { Button, Input, message } from "antd";
+import { Controller, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import ErrorsMessage from "../../Components/ErrorMessages/index.js";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+
+const schema = yup.object().shape({
+  username: yup
+    .string()
+    .trim("Tên đăng nhập không được bỏ trống")
+    .required("Tên đăng nhập không được bỏ trống"),
+  password: yup
+    .string()
+    .trim("Mật khẩu không được bỏ trống")
+    .required("Mật khẩu không được bỏ trống"),
+});
 
 const Login = () => {
-    return (
-        <div>Login</div>
-    )
-}
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const [notify, contextHolder] = message.useMessage();
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+  const onSubmit = async (data) => {
+    const { username, password } = data;
+    try {
+      await axios.post("http://localhost:3000/api/user/login", {
+        username,
+        password,
+      });
+      notify.info("Đăng nhập thành công");
+      navigate("/");
+      console.log(data);
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setErrorMessage(error.response.data.message);
+        console.log(error);
+      } else {
+        console.error(error);
+        message.error("Đã xảy ra lỗi. Vui lòng thử lại sau.");
+      }
+    }
+  };
+  return (
+    <div
+      style={{
+        backgroundImage:
+          "url('https://phongcachmoc.vn/upload/images/tin-tuc/20%20mau%20nha%20hang%20dep/update-07-2022/Sushi-World-Ton-That-Thiep-1.JPG')",
+        height: "100vh",
+      }}
+    >
+      {contextHolder}
+      <div className="login">
+        <h1>Đăng nhập tài khoản</h1>
+        <div className="form-item">
+          <span>Tên đăng nhập</span>
+          <Controller
+            control={control}
+            name="username"
+            render={({ field }) => (
+              <Input {...field} status={errors.username ? "error" : ""} />
+            )}
+          />
+          {errors.username && (
+            <ErrorsMessage message={errors.username.message} />
+          )}
+          {errorMessage === "Tên đăng nhập không tồn tại" && (
+            <ErrorsMessage message={{ message: errorMessage }} />
+          )}
+        </div>
+        <div className="form-item">
+          <span>Mật khẩu</span>
+          <Controller
+            control={control}
+            name="password"
+            render={({ field }) => (
+              <Input.Password
+                {...field}
+                status={errors.password ? "error" : ""}
+              />
+            )}
+          />
+          {errors.password && (
+            <ErrorsMessage message={errors.password.message} />
+          )}
+          {errorMessage === "Mật khẩu không đúng" && (
+            <ErrorsMessage message={{ message: errorMessage }} />
+          )}
+        </div>
+        <Button
+          className="submit"
+          type="primary"
+          style={{
+            display: "block",
+            width: "100%",
+          }}
+          onClick={handleSubmit(onSubmit)}
+        >
+          Đăng nhập
+        </Button>
+        <Link to="/userforget">
+          <Button
+            className="submit"
+            type="primary"
+            danger
+            style={{
+              display: "block",
+              width: "100%",
+            }}
+          >
+            Quên mật khẩu
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
+};
 
-export default Login
+export default Login;
