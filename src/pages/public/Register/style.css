@@ -1,0 +1,29 @@
+.register {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+  box-shadow: rgba(0, 0, 0, 35) 0px 5px 15px;
+  padding: 10px 20px;
+  background-color: white;
+}
+span,
+h1 {
+  color: black;
+  text-align: center;
+}
+.form-item {
+  margin: 10px 0px;
+}
+input {
+  margin-top: 5px;
+}
+.custom-button {
+  display: block;
+  width: 100px;
+  background-color: yellow;
+  color: white;
+}
