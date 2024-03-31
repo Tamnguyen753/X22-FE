@@ -21,13 +21,16 @@ function useStaff(){
             url: "http://localhost:3000/api/staff/loginStaff",
         });
 
-        const token = res.data;
+        const {accessToken, type} = res.data;
+        // console.log( accessToken, type);
         
-        localStorage.setItem("access_token_Staff", token);
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("type", type);
 
         toast.success("Đăng nhập thành công!");
-        // navigate("/createdStaffAccount");
-        navigate("/");
+        navigate("/createdRestaurant");
+        // navigate("/createStaffAccount");
+        // navigate("/");
         // getMe();
     };
 
@@ -56,16 +59,15 @@ function useStaff(){
     };
 
     const logOut = () => {
-        localStorage.removeItem("access_token_Staff");
+        localStorage.removeItem("accessToken");
         setUser(null);
     };
 
     const createdStaffAccount = async (data) => {
         const {name, email, address, dateOfBirth, staffCode, username, password, confirmPassword} = data;
 
-        console.log(data);
-
-        await request({
+        const typeStaff = localStorage.getItem("type");
+        await requestWithToken({
             data: {
                 name, 
                 email, 
@@ -78,7 +80,8 @@ function useStaff(){
             },
             method: "post",
             url: "http://localhost:3000/api/staff/createStaffAccount",
-        });
+        }, typeStaff);
+
         toast.success("Tạo tài khoản nhân viên thành công!");
         navigate("/restaurantdetail");
 

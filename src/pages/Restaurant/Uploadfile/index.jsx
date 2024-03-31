@@ -3,21 +3,25 @@ import React from 'react';
 import styled from "styled-components";
 import {FaImage} from "react-icons/fa";
 
-const UploadFile = ({image, handleChangeImage, height = "150px"}) => {
+const UploadFile = ({images, handleChangeImage, height = "150px"}) => {
   const onChange = (e) => {
-    const _files = e.currentTarget.files?.[0];
+    const _files = e.currentTarget.files;
+    const _urls = [];
 
     if(_files){
-      const url = URL.createObjectURL(_files);
+      for(let i = 0; i < _files.length; i++){
+        const url = URL.createObjectURL(_files[i]);
+        _urls.push(url);
+      }
 
-      handleChangeImage({files: _files, img: url});
+      handleChangeImage({files: _files, images: _urls});
     }
   };
 
   return (
-   <S style={{height,}}>
-    <input type='file' onChange={onChange}/>
-    {image && <img src={image} />}
+   <S style={{height}}>
+    <input type='file' multiple onChange={onChange}/>
+    {images && images.map((url, index) => <img key={index} src={url}/>)}
     <FaImage size={250} color="#1677ff"/>
    </S>
   );
@@ -26,8 +30,8 @@ const UploadFile = ({image, handleChangeImage, height = "150px"}) => {
 export default UploadFile;
 
 export const S = styled.div`
-boder-radius: 12px;
-boder: 1px solid #d9d9d9;
+border-radius: 12px;
+border: 1px solid #d9d9d9;
 display: flex;
 align-items: center;
 justify-content: center;

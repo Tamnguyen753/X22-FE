@@ -25,18 +25,22 @@ const schema = yup.object().shape({
 })
 const CreatedStaffAccount = () => {
 
+    // const {
+    //     register,
+    //     handleSubmit, formState: {errors},
+    // } = useForm({
+    //     resolver: yupResolver(schema),
+    // });
+
     const {
         register,
         handleSubmit, formState: {errors},
-    } = useForm({
-        resolver: yupResolver(schema),
-    });
+    } = useForm();
     
     const {createdStaffAccount} = useStaff();
 
     const onSubmit = async (data) => {
-        console.log(data);
-        
+
         try {
             await createdStaffAccount(data);
         } catch (err) {

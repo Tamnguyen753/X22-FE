@@ -10,15 +10,25 @@ const request = (config) => {
     return instance({...config});
 };
 
-const requestWithToken = (config) => {
-    const token = localStorage.getItem("access_token");
+const requestWithToken = (config, staffType) => {
+    const token = localStorage.getItem("accessToken");
 
-    return instance({
+    if(!token){
+        throw new Error("Bạn cần đăng nhập để thực hiện chức năng này!");
+    }
+
+    const instanceConfig = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
         ...config,
-    });
+    };
+
+    if(staffType === "manager"){
+        return instance(instanceConfig);
+    }else{
+        throw new Error("Bạn không có quyền thực hiện chức năng này! ");
+    }
 };
 
 export {request, requestWithToken};

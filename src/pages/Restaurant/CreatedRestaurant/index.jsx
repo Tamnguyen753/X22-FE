@@ -6,14 +6,20 @@ import UploadFile from '../Uploadfile';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/esm/Button';
+import { requestWithToken } from '../../../utils/axios-http';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const CreatedRestaurant = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
         address: '',
         describe: '',
-        image: '',
+        images: [],
         rate: 0,
+        viewCount: 0,
+        rateCount: 0,
     });
 
     const handleChange = (e) => {
@@ -24,31 +30,47 @@ const CreatedRestaurant = () => {
         }));
     };
 
-    const handleChangeImage = ({img}) => {
+    const handleChangeImage = ({images}) => {
         setFormData((prevData) => ({
             ...prevData,
-            image: img,
+            images: [...prevData.images, images],
         }));
     };
 
     const handleCreateRestaurant = async () => {
-        const file = formData.image;
-        if(!file){
+        const files = formData.images;
+        if(!files.length){
             return console.error("chua co file");
         }
-        // console.log(formData);
 
-        axios.post("http://localhost:3000/api/restaurants/info", formData)
-        .then(res => {
+        console.log(formData);
+        
+        try{
+            const type = localStorage.getItem("type");
+            await requestWithToken({
+                data: formData,
+                method: "post",
+                url: "http://localhost:3000/api/restaurants/info",
+            }, type);
+
+            toast.success("tao nha hang thanh cong!");
+            
             setFormData({
                 name: '',
                 address: '',
                 describe: '',
-                image: '',
+                images: [],
                 rate: 0,
+                viewCount: 0,
+                rateCount: 0,
             });
-        })
-        .catch(error => console.log(error));
+
+            navigate("/restaurantdetail");
+
+        }catch(error){
+            console.log(error);
+            toast.error("da xay ra loi!");
+          }
     };
 
   return (
@@ -79,7 +101,7 @@ const CreatedRestaurant = () => {
             <p>
                 Ảnh nhà hàng: 
             </p>
-            <UploadFile  image={formData.image} handleChangeImage={handleChangeImage}/>
+            <UploadFile  images={formData.images} handleChangeImage={handleChangeImage}/>
             <br/>
 
             <Button type='submit'>Thêm nhà hàng</Button>
