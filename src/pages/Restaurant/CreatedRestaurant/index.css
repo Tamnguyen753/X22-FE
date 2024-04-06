@@ -1,0 +1,26 @@
+.created-restaurant-form{
+    width: 50%;
+    height: 700px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+    background-color: white;
+    padding: 30px 100px;
+    margin-left: 25%;
+    margin-top: 100px;
+}
+
+.title{
+    font-size: 30px;
+    text-align: center;
+}
+
+input{
+    width: 100%;
+}
+
+.describe{
+    height: 100px;
+}
+
+button{
+    margin-left: 45%;
+}
