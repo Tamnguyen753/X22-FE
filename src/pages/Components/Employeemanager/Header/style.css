@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  background-color: white;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #f0f0f0;
+}
+.logo {
+  width: 18%;
+  align-items: center;
+}
+.title {
+  width: 80%;
+}
+.login-logout {
+  width: 20%;
+  display: flex;
+}

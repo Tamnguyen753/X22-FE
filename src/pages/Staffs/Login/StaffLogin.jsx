@@ -27,23 +27,23 @@ const StaffLogin = () => {
     return (
         <>
         <div className='form'>
-            <p className='td-form'><b>LOGIN</b></p>
+            <p className='td-form'><b>Đăng nhập</b></p>
             <Form className='lg' onSubmit={login}>
                 <AlertMessage info={alert}/>
                 <Form.Group>
-                    <Form.Control type='text' placeholder='Username' name='username' required value={username} onChange={onChangeLoginForm}></Form.Control>
+                    <Form.Control type='text' placeholder='Tên đăng nhập' name='username' required value={username} onChange={onChangeLoginForm}></Form.Control>
                 </Form.Group>
                 <br/>
                 <Form.Group>
-                    <Form.Control type='password' placeholder='Password' name='password' required value={password} onChange={onChangeLoginForm}></Form.Control>
+                    <Form.Control type='password' placeholder='Mật khẩu' name='password' required value={password} onChange={onChangeLoginForm}></Form.Control>
                 </Form.Group>
                 <br/>
-                <Button variant='success' type='submit'>Login</Button>
+                <Button variant='success' type='submit'>Đăng nhập</Button>
                 <br/>
             </Form>
-            <p>Don't have an account?
+            <p>Bạn chưa có tài khoản ?
             <Link to='/staffRegister'>
-                <Button variant='info'>Register</Button>
+                <Button variant='info'>Đăng ký</Button>
             </Link>
             </p>
         </div>

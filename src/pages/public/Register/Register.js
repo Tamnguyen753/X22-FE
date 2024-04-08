@@ -11,6 +11,10 @@ import { Link, useNavigate } from "react-router-dom";
 const schema = yup.object().shape({
   username: yup.string().trim().required("Tên đăng nhập không được bỏ trống"),
   password: yup.string().trim().required("Mật khẩu không được bỏ trống"),
+  confirmPassword: yup
+    .string()
+    .required()
+    .oneOf([yup.ref("password")], "Mật khẩu chưa đúng"),
   email: yup
     .string()
     .email("email sai định dạng")
@@ -92,6 +96,22 @@ const Register = () => {
             )}
           />
           {errors.password && <ErrorsMessage message={errors.password} />}
+        </div>
+        <div className="form-item">
+          <span>Nhập lại mật khẩu</span>
+          <Controller
+            control={control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <Input.Password
+                {...field}
+                status={errors.confirmPassword ? "error" : ""}
+              />
+            )}
+          />
+          {errors.confirmPassword && (
+            <ErrorsMessage message={errors.confirmPassword} />
+          )}
         </div>
         <div className="form-item">
           <span>Họ</span>

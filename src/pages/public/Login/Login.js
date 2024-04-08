@@ -6,9 +6,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ErrorsMessage from "../../Components/ErrorMessages/index.js";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   username: yup
@@ -35,13 +34,14 @@ const Login = () => {
   const onSubmit = async (data) => {
     const { username, password } = data;
     try {
-      await axios.post("http://localhost:3000/api/user/login", {
+      const res = await axios.post("http://localhost:3000/api/user/login", {
         username,
         password,
       });
-      notify.info("Đăng nhập thành công");
+      const token = JSON.stringify(res.data.data);
+      localStorage.setItem("access_token", token);
+      await notify.info("Đăng nhập thành công");
       navigate("/");
-      console.log(data);
     } catch (error) {
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data.message);
@@ -101,27 +101,18 @@ const Login = () => {
         <Button
           className="submit"
           type="primary"
-          style={{
-            display: "block",
-            width: "100%",
-          }}
           onClick={handleSubmit(onSubmit)}
         >
           Đăng nhập
         </Button>
-        <Link to="/userforget">
-          <Button
-            className="submit"
-            type="primary"
-            danger
-            style={{
-              display: "block",
-              width: "100%",
-            }}
-          >
-            Quên mật khẩu
-          </Button>
-        </Link>
+        <div>
+          <span>Quên mật khẩu ?</span>
+          <Link to="/userforget">
+            <Button className="submit" type="primary" danger>
+              Quên mật khẩu
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
