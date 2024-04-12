@@ -5,14 +5,16 @@ import * as yup from "yup";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './style2.css';
 import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup"
+import {yupResolver} from "@hookform/resolvers/yup";
+
 import useStaff from '../../../hooks/useStaff';
 import { toast } from 'react-toastify';
 import { extractMessageFormErr } from '../../../utils/error';
 import ErrorMessages from '../../../utils/ErrorMessages';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './style2.css';
 
 const schema = yup.object().shape({
     name: yup.string().required("Bắt buộc phải điền tên!"),
@@ -75,11 +77,12 @@ const StaffRegister = () => {
             <br/>
         </Form>
         <br/>
-        <p className='cc'> Bạn đã có tài khoản?
+        <div className='cc'> 
+            <p>Bạn đã có tài khoản?</p>
             <Link to='/loginStaff'>
-                <Button variant='info'>Đăng nhập</Button>
+                <Button className='dn' variant='info'>Đăng nhập</Button>
             </Link>
-        </p>
+        </div>
     </div>
     </>
   )

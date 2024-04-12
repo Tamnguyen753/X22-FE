@@ -1,31 +1,27 @@
 /* eslint-disable no-unused-vars */
-import {useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { request, requestWithToken } from "../utils/axios-http";
 import { useContext } from "react";
-import {AppContext} from "../App";
+import { AppContext } from "../App";
 
-function useStaff(){
+function useStaff() {
     const navigate = useNavigate();
-    const {setUser} = useContext(AppContext);
+    const { setUser } = useContext(AppContext);
 
     const login = async (data) => {
-        const {username, password} = data;
-
         const res = await request({
-            data: {
-                username, 
-                password
-            },
+            data,
             method: "post",
-            url: "/staff/loginStaff",
+            url: "/auth/login",
         });
 
-        const {accessToken, type} = res.data;
+        const { accessToken, type, loginTypeValue } = res.data;
         // console.log( accessToken, type);
-        
+
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("type", type);
+        localStorage.setItem("loginTypeValue", loginTypeValue)
 
         toast.success("Đăng nhập thành công!");
         navigate("/createdRestaurant");
@@ -35,17 +31,17 @@ function useStaff(){
     };
 
     const register = async (data) => {
-        const {name, email, username, password, confirmPassword} = data;
+        const { name, email, username, password, confirmPassword } = data;
         await request({
             data: {
-                name, 
-                email, 
-                username, 
-                password, 
+                name,
+                email,
+                username,
+                password,
                 confirmPassword,
             },
             method: "post",
-            url:"/staff/registerStaff",
+            url: "/auth/managerRegister",
         });
         toast.success("Đăng kí thành công!");
         navigate("/loginStaff");
@@ -64,22 +60,22 @@ function useStaff(){
     };
 
     const createdStaffAccount = async (data) => {
-        const {name, email, address, dateOfBirth, staffCode, username, password, confirmPassword} = data;
+        const { name, email, address, dateOfBirth, staffCode, username, password, confirmPassword } = data;
 
         const typeStaff = localStorage.getItem("type");
         await requestWithToken({
             data: {
-                name, 
-                email, 
-                address, 
-                dateOfBirth, 
-                staffCode, 
-                username, 
-                password, 
+                name,
+                email,
+                address,
+                dateOfBirth,
+                staffCode,
+                username,
+                password,
                 confirmPassword,
             },
             method: "post",
-            url: "/staff/createStaffAccount",
+            url: "/staff",
         }, typeStaff);
 
         toast.success("Tạo tài khoản nhân viên thành công!");
@@ -87,7 +83,6 @@ function useStaff(){
 
     };
 
-    return {login, register, getMe, logOut, createdStaffAccount};
+    return { login, register, getMe, logOut, createdStaffAccount };
 };
 export default useStaff;
-

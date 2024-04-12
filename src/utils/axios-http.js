@@ -7,13 +7,13 @@ const instance = axios.create({
 
 const request = (config) => {
     console.log(config);
-    return instance({...config});
+    return instance({ ...config });
 };
 
 const requestWithToken = (config, staffType) => {
     const token = localStorage.getItem("accessToken");
 
-    if(!token){
+    if (!token) {
         throw new Error("Bạn cần đăng nhập để thực hiện chức năng này!");
     }
 
@@ -24,11 +24,11 @@ const requestWithToken = (config, staffType) => {
         ...config,
     };
 
-    if(staffType === "manager"){
-        return instance(instanceConfig);
-    }else{
-        throw new Error("Bạn không có quyền thực hiện chức năng này! ");
-    }
+    return instance(instanceConfig);
+    // if(staffType === "manager"){
+    // }else{
+    //     throw new Error("Bạn không có quyền thực hiện chức năng này! ");
+    // }
 };
 
-export {request, requestWithToken};
+export { request, requestWithToken };
