@@ -1,10 +1,6 @@
-body{
-    background-image: url("https://phongcachmoc.vn/upload/images/tin-tuc/20%20mau%20nha%20hang%20dep/update-07-2022/Sushi-World-Ton-That-Thiep-1.JPG");
-    background-size: cover;
-}
-.created-restaurant-form{
+.update-restaurant-form{
     width: 50%;
-    min-height: 600px;
+    min-height: 700px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
     background-color: white;
     padding: 30px 100px;
@@ -26,5 +22,5 @@ input{
 }
 
 button{
-   width: 100%;
+    width: 100%;
 }
