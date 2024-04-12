@@ -37,13 +37,13 @@ const CreatedRestaurant = () => {
         }
     });
 
-    const handleChangeImage = ({files,image}) => {
+    const handleChangeImage = ({ files, image }) => {
         setImage([...image, ...files]);
     };
 
     const onSubmit = (data) => {
         data.image = image;
-        console.log(data);
+        console.log("data:", data);
         createRestaurantMutation.mutate(data);
     }
 
@@ -81,8 +81,8 @@ const CreatedRestaurant = () => {
                 {errors.describe && <ErrorMessages message={errors.describe.message} />}
                 <br />
 
-                <UploadFile  image={image} handleChangeImage={handleChangeImage}/>
-                <br/>
+                <UploadFile image={image} handleChangeImage={handleChangeImage} />
+                <br />
                 <Button className="dk" variant='success' type='submit'>Thêm mới</Button>
                 <br />
             </Form>

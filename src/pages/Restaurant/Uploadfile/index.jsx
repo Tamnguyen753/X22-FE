@@ -13,7 +13,7 @@ const UploadFile = ({ image, handleChangeImage, height = "250px" }) => {
         const response = await uploadFiles(_files);
         const imageUrls = response.data.imageUrls;
 
-        console.log(imageUrls);
+        console.log("imageUrls:",imageUrls);
 
         // Gọi hàm handleChangeImage để cập nhật trạng thái của component
         handleChangeImage({ files: _files, image: imageUrls });
@@ -62,9 +62,4 @@ export const S = styled.div`
     top: 0;
     left: 0;
   }
-
-  ${'' /* .icon{
-    width:100px;
-    height: 100px;
-  } */}
 `;
