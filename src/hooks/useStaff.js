@@ -16,7 +16,9 @@ function useStaff() {
       url: "/auth/login",
     });
 
-    const { accessToken, type, loginTypeValue } = res.data;
+    console.log(res);
+
+    const { accessToken, type, loginTypeValue, staff } = res.data;
     // console.log( accessToken, type);
 
     localStorage.setItem("accessToken", accessToken);
