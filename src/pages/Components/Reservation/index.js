@@ -7,19 +7,17 @@ const Reservation = () => {
   const [bookingRequests, setBookingRequests] = useState([]);
   const { fetchBookingRequests } = useRevation();
   const restaurantId = "65f8315877dddaa5d035da44";
-  const { setNumDependingRe } = useContext(AppContext);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchBookingRequests(restaurantId);
-      setBookingRequests(data);
-      setNumDependingRe(data.length); // Di chuyển vào trong useEffect
+      setBookingRequests(data ?? []);
     };
 
     fetchData();
-  }, [restaurantId, fetchBookingRequests, setNumDependingRe]);
+  }, [restaurantId]);
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => { };
 
   return (
     <div>

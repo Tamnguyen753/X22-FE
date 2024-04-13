@@ -19,7 +19,7 @@ const Header = () => {
     return (
         <div className='header'>
             <img style={{ cursor: "pointer" }} src={'https://static-assets.diningcity.asia/icons/logo_web_en.png'} onClick={handleLogoClick} ></img>
-            <div className='login'>
+            <div className='login-btn'>
                 <Button onClick={handleStaffLogin} type='primary'>Restaurant Login</Button>
                 <span onClick={handleUserLogin} className='iconuser'><i class="fa-regular fa-user"></i></span>
             </div>
