@@ -27,17 +27,23 @@ export const AppContext = createContext();
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [numDependingRe, setNumDependingRe] = useState(0);
   return (
     <QueryClientProvider client={queryClient}>
-      <AppContext.Provider value={{ user, setUser }}>
+      <AppContext.Provider
+        value={{ user, setUser, numDependingRe, setNumDependingRe }}
+      >
         <ToastContainer />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/restaurantdetail" element={<RestaurantDetail />} />
-            <Route path="/createStaffAccount" element={<CreatedStaffAccount />} />
+            <Route
+              path="/createStaffAccount"
+              element={<CreatedStaffAccount />}
+            />
             <Route path="/createdRestaurant" element={<CreatedRestaurant />} />
-            <Route path="/updatedRestaurant" element={<UpdateRestaurant/>}/>
+            <Route path="/updatedRestaurant" element={<UpdateRestaurant />} />
             <Route path="/userlogin" element={<Login />} />
             <Route path="/userregister" element={<Register />} />
             <Route path="/userforget" element={<ForgotPassword />} />

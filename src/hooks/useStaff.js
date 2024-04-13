@@ -6,83 +6,99 @@ import { useContext } from "react";
 import { AppContext } from "../App";
 
 function useStaff() {
-    const navigate = useNavigate();
-    const { setUser } = useContext(AppContext);
+  const navigate = useNavigate();
+  const { setUser } = useContext(AppContext);
 
-    const login = async (data) => {
-        const res = await request({
-            data,
-            method: "post",
-            url: "/auth/login",
-        });
+  const login = async (data) => {
+    const res = await request({
+      data,
+      method: "post",
+      url: "/auth/login",
+    });
 
-        const { accessToken, type, loginTypeValue } = res.data;
-        // console.log( accessToken, type);
+    const { accessToken, type, loginTypeValue } = res.data;
+    // console.log( accessToken, type);
 
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("type", type);
-        localStorage.setItem("loginTypeValue", loginTypeValue)
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("type", type);
+    localStorage.setItem("loginTypeValue", loginTypeValue);
 
-        toast.success("Đăng nhập thành công!");
-        navigate("/createdRestaurant");
-        // navigate("/createStaffAccount");
-        // navigate("/");
-        // getMe();
-    };
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("type", type);
 
-    const register = async (data) => {
-        const { name, email, username, password, confirmPassword } = data;
-        await request({
-            data: {
-                name,
-                email,
-                username,
-                password,
-                confirmPassword,
-            },
-            method: "post",
-            url: "/auth/managerRegister",
-        });
-        toast.success("Đăng kí thành công!");
-        navigate("/loginStaff");
-    };
+    toast.success("Đăng nhập thành công!");
+    setUser(staff);
+    console.log(staff);
+    navigate("/createdRestaurant");
+    // navigate("/createStaffAccount");
+    // navigate("/");
+    // getMe();
+  };
 
-    const getMe = async () => {
-        const res = await requestWithToken({
-            url: "/staff/me",
-        });
-        setUser(res.data);
-    };
+  const register = async (data) => {
+    const { name, email, username, password, confirmPassword } = data;
+    await request({
+      data: {
+        name,
+        email,
+        username,
+        password,
+        confirmPassword,
+      },
+      method: "post",
+      url: "/staff/registerStaff",
+    });
+    toast.success("Đăng kí thành công!");
+    navigate("/loginStaff");
+  };
 
-    const logOut = () => {
-        localStorage.removeItem("accessToken");
-        setUser(null);
-    };
+  const getMe = async () => {
+    const res = await requestWithToken({
+      url: "/staff/me",
+    });
+    setUser(res.data);
+  };
 
-    const createdStaffAccount = async (data) => {
-        const { name, email, address, dateOfBirth, staffCode, username, password, confirmPassword } = data;
+  const logOut = () => {
+    localStorage.removeItem("accessToken");
+    setUser(null);
+  };
 
-        const typeStaff = localStorage.getItem("type");
-        await requestWithToken({
-            data: {
-                name,
-                email,
-                address,
-                dateOfBirth,
-                staffCode,
-                username,
-                password,
-                confirmPassword,
-            },
-            method: "post",
-            url: "/staff",
-        }, typeStaff);
+  const createdStaffAccount = async (data) => {
+    const {
+      name,
+      email,
+      address,
+      dateOfBirth,
+      staffCode,
+      username,
+      password,
+      confirmPassword,
+    } = data;
 
-        toast.success("Tạo tài khoản nhân viên thành công!");
-        navigate("/restaurantdetail");
+    const typeStaff = localStorage.getItem("type");
+    await requestWithToken(
+      {
+        data: {
+          name,
+          email,
+          address,
+          dateOfBirth,
+          staffCode,
+          username,
+          password,
+          confirmPassword,
+        },
+        method: "post",
+        url: "/staff",
+      },
+      typeStaff
+    );
 
-    };
+    toast.success("Tạo tài khoản nhân viên thành công!");
+    navigate("/restaurantdetail");
+  };
 
-    return { login, register, getMe, logOut, createdStaffAccount };
-};
+  return { login, register, getMe, logOut, createdStaffAccount };
+}
 export default useStaff;

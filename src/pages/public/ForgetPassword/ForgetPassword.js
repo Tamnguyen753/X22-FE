@@ -9,11 +9,6 @@ import "./style.css";
 
 const schema = yup.object().shape({
   username: yup.string().trim().required("Tên đăng nhập không được bỏ trống"),
-  email: yup
-    .string()
-    .trim()
-    .email("email sai định dạng")
-    .required("Email không được bỏ trống"),
 });
 
 const ForgotPassword = () => {
@@ -27,21 +22,15 @@ const ForgotPassword = () => {
   });
 
   const onSubmit = async (data) => {
-    const { username, email } = data;
     try {
-      await axios.get("http://localhost:3000/api/user/forgetpassword", {
+      const { username } = data;
+      await axios.post("http://localhost:3000/api/user/forgetpassword", {
         username,
-        email,
       });
       notify.info("Vui lòng kiểm tra Email");
-      console.log(data);
     } catch (error) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.error(error);
-        message.error("Đã xảy ra lỗi. Vui lòng thử lại sau.");
-      }
+      message.error("Đã xảy ra lỗi. Vui lòng thử lại sau.");
+      console.log(error);
     }
   };
 
@@ -67,24 +56,9 @@ const ForgotPassword = () => {
           />
           {errors.username && <ErrorsMessage message={errors.username} />}
         </div>
-        <div className="form-item">
-          <span>Email</span>
-          <Controller
-            control={control}
-            name="email"
-            render={({ field }) => (
-              <Input {...field} status={errors.email ? "error" : ""} />
-            )}
-          />
-          {errors.email && <ErrorsMessage message={errors.email} />}
-        </div>
         <Button
           className="submit"
           type="primary"
-          style={{
-            display: "block",
-            width: "100%",
-          }}
           onClick={handleSubmit(onSubmit)}
         >
           Gửi yêu cầu

@@ -1,0 +1,42 @@
+.management-form {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+}
+.app-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: f0f0f0;
+}
+
+.categories {
+  width: 18%;
+  background-color: #f0f0f0;
+}
+.categories button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.categories button:hover {
+  background-color: #ccc;
+}
+
+.categories button.active {
+  background-color: #bbb;
+}
+
+.content {
+  width: 8000%;
+  padding: 20px;
+  background-color: #dfd5e6;
+}

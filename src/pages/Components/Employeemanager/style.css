@@ -1,0 +1,36 @@
+.employee-item {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 10px;
+  background-color: white;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+.info {
+  margin-top: 35px;
+}
+
+.react-icon-add {
+  color: rgb(179, 219, 219);
+}
+.react-icon-del {
+  color: red;
+}
+.employee-list {
+  position: relative;
+}
+.add-new {
+  position: absolute;
+  top: 40px;
+  right: 0;
+}
