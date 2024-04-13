@@ -9,10 +9,11 @@ import {
   UserOutlined,
   WechatWorkOutlined,
 } from "@ant-design/icons";
-import RestaurantDetail from "../../public/RestaurantDetail/RestaurantDetail.js";
+
 import ListMenu from "../../Components/Menu/index.js";
 import Reservation from "../../Components/Reservation/index.js";
 import AppContext from "antd/es/app/context.js";
+// import RestaurantDetail from "../../public/RestaurantDetail/RestaurantDetail.js";
 const ManagerHome = () => {
   const { user } = useContext(AppContext);
   console.log("aaa", user);
@@ -66,7 +67,7 @@ const ManagerHome = () => {
               {selectedItem == 4 && <Employeemanager />}
               {selectedItem == 3 && <Reservation />}
               {selectedItem == 2 && <ListMenu />}
-              {selectedItem == 1 && <RestaurantDetail />}
+              {/* {selectedItem == 1 && <RestaurantDetail />} */}
             </div>
           ) : (
             <h3 className="content-name">Tìm danh mục muốn xem</h3>

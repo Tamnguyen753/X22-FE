@@ -40,7 +40,7 @@ const StaffLogin = () => {
     };
 
     return (
-        <>
+        <div className='tam'>
             <div className='form'>
                 <p className='td-form'><b>Đăng nhập</b></p>
                 <Form className='form-container' onSubmit={handleSubmit(onSubmit)}>
@@ -75,7 +75,7 @@ const StaffLogin = () => {
                     </Link>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

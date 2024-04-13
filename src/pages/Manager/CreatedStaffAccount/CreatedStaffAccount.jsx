@@ -49,7 +49,7 @@ const CreatedStaffAccount = () => {
     };
 
   return (
-    <>
+    <div className='hang'>
     <div className='form2'>
         <p className='td-form2'><b>TẠO TÀI KHOẢN CHO NHÂN VIÊN MỚI</b></p>
         <Form className='rg' onSubmit={handleSubmit(onSubmit)}>
@@ -92,7 +92,7 @@ const CreatedStaffAccount = () => {
             <br/>
         </Form>
     </div>
-    </>
+    </div>
   )
 
 

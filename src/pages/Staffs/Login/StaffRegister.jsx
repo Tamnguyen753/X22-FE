@@ -43,7 +43,7 @@ const StaffRegister = () => {
     };
 
   return (
-    <>
+    <div className='nam'>
     <div className='form2'>
         <p className='td-form2'><b>QUẢN LÝ ĐĂNG KÝ TÀI KHOẢN</b></p>
         <Form className='rg' onSubmit={handleSubmit(onSubmit)}>
@@ -84,7 +84,7 @@ const StaffRegister = () => {
             </Link>
         </div>
     </div>
-    </>
+    </div>
   )
 
 

@@ -1,12 +1,14 @@
 import axios from "axios";
+import { request, requestWithToken } from "../utils/axios-http";
 
 function useRevation() {
   const fetchBookingRequests = async (restaurantId) => {
     try {
-      const response = await axios.get(
-        `http://localhost:9000/api/reservation/${restaurantId}`
-      );
-      return response.data.data;
+      const response = await requestWithToken({
+        url: `/reservation/staffGetReservations`
+      });
+      console.log(response);
+      return response.data;
     } catch (error) {
       console.error(error);
     }
