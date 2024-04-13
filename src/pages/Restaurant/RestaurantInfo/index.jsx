@@ -15,7 +15,7 @@ const Restaurant = ({
 
   return (
     <Srestaurant onClick={() => navigate(`restaurant/${restaurantId}`)}>
-      <img className='image-restaurant' src={import.meta.env.VITE_STATIC_URL + image}/>
+      <img className='image-restaurant' src={process.env.REACT_APP_API_URL + image}/>
 
       <div className='info'>
         <h1 className='restaurantName'>{name}</h1>

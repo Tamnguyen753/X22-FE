@@ -22,6 +22,8 @@ import CreatedRestaurant from "./pages/Restaurant/CreatedRestaurant";
 import CreatedStaffAccount from "./pages/Manager/CreatedStaffAccount/CreatedStaffAccount";
 import UpdateRestaurant from "./pages/Restaurant/RestaurantUpdate";
 
+import Layout from "./shared/layout/Layout";
+
 const queryClient = new QueryClient();
 export const AppContext = createContext();
 
@@ -35,26 +37,28 @@ const App = () => {
       >
         <ToastContainer />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/restaurantdetail" element={<RestaurantDetail />} />
-            <Route
-              path="/createStaffAccount"
-              element={<CreatedStaffAccount />}
-            />
-            <Route path="/createdRestaurant" element={<CreatedRestaurant />} />
-            <Route path="/updatedRestaurant" element={<UpdateRestaurant />} />
-            <Route path="/userlogin" element={<Login />} />
-            <Route path="/userregister" element={<Register />} />
-            <Route path="/userforget" element={<ForgotPassword />} />
-            <Route path="/bookinginfo" element={<BookingInfo />} />
-            <Route path="/checkin" element={<Checkin />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/loginStaff" element={<StaffLogin />} />
-            <Route path="/registerStaff" element={<StaffRegister />} />
-            <Route path="/managerlogin" element={<ManagerLogin />} />
-            <Route path="/managerhome" element={<ManagerHome />} />
-          </Routes>
+          <Layout >
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/restaurant/:restaurantId" element={<RestaurantDetail />} />
+              <Route
+                path="/createStaffAccount"
+                element={<CreatedStaffAccount />}
+              />
+              <Route path="/createdRestaurant" element={<CreatedRestaurant />} />
+              <Route path="/updatedRestaurant" element={<UpdateRestaurant />} />
+              <Route path="/userlogin" element={<Login />} />
+              <Route path="/userregister" element={<Register />} />
+              <Route path="/userforget" element={<ForgotPassword />} />
+              <Route path="/bookinginfo" element={<BookingInfo />} />
+              <Route path="/checkin" element={<Checkin />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/loginStaff" element={<StaffLogin />} />
+              <Route path="/registerStaff" element={<StaffRegister />} />
+              <Route path="/managerlogin" element={<ManagerLogin />} />
+              <Route path="/managerhome" element={<ManagerHome />} />
+            </Routes>
+          </Layout>
         </BrowserRouter>
       </AppContext.Provider>
     </QueryClientProvider>
