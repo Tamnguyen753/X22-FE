@@ -2,6 +2,7 @@
 import React, { createContext, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ToastContainer } from "react-toastify";
 
 import "./App.css";
 
@@ -16,11 +17,10 @@ import StaffLogin from "./pages/Staffs/Login/StaffLogin";
 import ManagerLogin from "./pages/Manager/Login/ManagerLogin";
 import ManagerHome from "./pages/Manager/ManagerHome/ManagerHome";
 import StaffRegister from "./pages/Staffs/Login/StaffRegister";
-import RegisterRestaurant from "./pages/Restaurant/Login/RegisterRestaurant";
-import LoginRestaurant from "./pages/Restaurant/Login/LoginRestaurant";
 import ForgotPassword from "./pages/public/ForgetPassword/ForgetPassword";
 import CreatedRestaurant from "./pages/Restaurant/CreatedRestaurant";
 import CreatedStaffAccount from "./pages/Manager/CreatedStaffAccount/CreatedStaffAccount";
+import UpdateRestaurant from "./pages/Restaurant/RestaurantUpdate";
 
 const queryClient = new QueryClient();
 export const AppContext = createContext();
@@ -33,6 +33,7 @@ const App = () => {
       <AppContext.Provider
         value={{ user, setUser, numDependingRe, setNumDependingRe }}
       >
+        <ToastContainer />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -42,6 +43,7 @@ const App = () => {
               element={<CreatedStaffAccount />}
             />
             <Route path="/createdRestaurant" element={<CreatedRestaurant />} />
+            <Route path="/updatedRestaurant" element={<UpdateRestaurant />} />
             <Route path="/userlogin" element={<Login />} />
             <Route path="/userregister" element={<Register />} />
             <Route path="/userforget" element={<ForgotPassword />} />

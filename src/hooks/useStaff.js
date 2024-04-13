@@ -10,19 +10,18 @@ function useStaff() {
   const { setUser } = useContext(AppContext);
 
   const login = async (data) => {
-    const { username, password } = data;
-
     const res = await request({
-      data: {
-        username,
-        password,
-      },
+      data,
       method: "post",
-      url: "/staff/loginStaff",
+      url: "/auth/login",
     });
 
-    const { accessToken, type, staff } = res.data;
+    const { accessToken, type, loginTypeValue } = res.data;
     // console.log( accessToken, type);
+
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("type", type);
+    localStorage.setItem("loginTypeValue", loginTypeValue);
 
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("type", type);
@@ -91,7 +90,7 @@ function useStaff() {
           confirmPassword,
         },
         method: "post",
-        url: "/staff/createStaffAccount",
+        url: "/staff",
       },
       typeStaff
     );

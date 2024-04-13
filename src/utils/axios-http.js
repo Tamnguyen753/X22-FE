@@ -24,11 +24,11 @@ const requestWithToken = (config, staffType) => {
     ...config,
   };
 
-  if (staffType === "manager") {
-    return instance(instanceConfig);
-  } else {
-    throw new Error("Bạn không có quyền thực hiện chức năng này! ");
-  }
+  return instance(instanceConfig);
+  // if(staffType === "manager"){
+  // }else{
+  //     throw new Error("Bạn không có quyền thực hiện chức năng này! ");
+  // }
 };
 
 export { request, requestWithToken };
