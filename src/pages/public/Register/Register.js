@@ -39,7 +39,7 @@ const Register = () => {
   const onSubmit = async (data) => {
     const { username, password, firstName, lastName, email, phone } = data;
     try {
-      await axios.post("http://localhost:3000/api/user/register", {
+      await axios.post("http://localhost:9000/api/user/register", {
         username,
         password,
         firstName,

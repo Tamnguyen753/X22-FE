@@ -16,20 +16,6 @@
   width: 18%;
   background-color: #f0f0f0;
 }
-.categories .info-staff {
-  display: flex;
-  max-width: 100%;
-  height: 100px;
-  background-color: white;
-}
-.categories .info-staff .img {
-  width: 80%;
-  height: 80%;
-}
-.categories .info-staff .info {
-  margin-top: 0px;
-  text-align: left;
-}
 .categories button {
   display: block;
   width: 100%;
@@ -50,7 +36,7 @@
 }
 
 .content {
-  width: 100%;
+  width: 8000%;
   padding: 20px;
-  background-color: #d7aaf5;
+  background-color: #dfd5e6;
 }

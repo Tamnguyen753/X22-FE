@@ -1,24 +1,34 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import styled from "styled-components";
-import {FileImageOutlined} from "antd";
+import {CloudUploadOutlined} from "@ant-design/icons";
 
-const UploadFile = ({image, handleChange, height = "150px"}) => {
+const UploadFile = ({images, handleChangeImage, height = "150px"}) => {
   const onChange = (e) => {
-    const _files = e.currentTarget.files?.[0];
+    const _files = e.currentTarget.files;
+    // console.log("_files: ", _files);
+    const _urls = [];
 
     if(_files){
-      const url = URL.createObjectURL(_files);
+      for(let i = 0; i < _files.length; i++){
+        // console.log("_files[i]: ",_files[i]);
 
-      handleChange({files: _files, img: url});
+        const url = URL.createObjectURL(_files[i]);
+
+        // console.log("url:",url);
+        _urls.push(url);
+      }
+
+      // console.log("_urls:", _urls);
+      handleChangeImage({files: _files, images: _urls});
     }
   };
 
   return (
-   <S style={{height,}}>
-    <input type='file' onChange={onChange}/>
-    {image && <img src={image} />}
-    <FileImageOutlined size={30} color="#1677ff"/>
+   <S style={{height}}>
+    <input type='file' multiple onChange={onChange}/>
+    {images && images.map((url, index) => <img key={index} src={url}/>)}
+    <CloudUploadOutlined size={250} color="#1677ff"/>
    </S>
   );
 };
@@ -26,8 +36,8 @@ const UploadFile = ({image, handleChange, height = "150px"}) => {
 export default UploadFile;
 
 export const S = styled.div`
-boder-radius: 12px;
-boder: 1px solid #d9d9d9;
+border-radius: 12px;
+border: 1px solid #d9d9d9;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -43,7 +53,7 @@ input{
   width: 100%;
   opacity: 0;
   cursor: pointer;
-  boder: none;
+  ${'' /* boder: none ; */}
 }
 
 image{

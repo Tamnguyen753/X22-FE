@@ -34,7 +34,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     const { username, password } = data;
     try {
-      const res = await axios.post("http://localhost:3000/api/user/login", {
+      const res = await axios.post("http://localhost:9000/api/user/login", {
         username,
         password,
       });

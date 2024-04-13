@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./style.css";
 import Employeemanager from "../../Components/Employeemanager";
 import Header from "../../Components/Employeemanager/Header/Header.js";
@@ -12,8 +12,10 @@ import {
 import RestaurantDetail from "../../public/RestaurantDetail/RestaurantDetail.js";
 import ListMenu from "../../Components/Menu/index.js";
 import Reservation from "../../Components/Reservation/index.js";
-
+import AppContext from "antd/es/app/context.js";
 const ManagerHome = () => {
+  const { user } = useContext(AppContext);
+  console.log("aaa", user);
   const [selectedItem, setSelectedItem] = useState(1);
   function getItem(label, key, icon, children, type) {
     return {
@@ -44,19 +46,6 @@ const ManagerHome = () => {
       <Header />
       <div className="app-container ">
         <div className="categories">
-          <div className="info-staff">
-            <div class="image">
-              <img
-                src="https://images.vexels.com/content/145908/preview/male-avatar-maker-2a7919.png"
-                alt="Hình ảnh của bạn"
-                style={{ width: "100%", height: "100%" }}
-              />
-            </div>
-            <div className="info">
-              <div className="name-staff">Họ và Tên</div>
-              <div className="type-staff">Vị trí</div>
-            </div>
-          </div>
           <Menu
             className="button"
             onClick={onClick}

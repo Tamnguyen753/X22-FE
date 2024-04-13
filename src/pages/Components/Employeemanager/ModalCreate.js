@@ -28,7 +28,7 @@ export default function ModalCreate() {
             password,
           },
           method: "post",
-          url: "http://localhost:3000/api/staff/createStaffAccount",
+          url: "http://localhost:9000/api/staff",
         },
         token
       );

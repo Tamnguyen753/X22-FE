@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
-import "./App.css";
 import React, { createContext, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import "./App.css";
+
 import Home from "./pages/public/Home/Home";
 import RestaurantDetail from "./pages/public/RestaurantDetail/RestaurantDetail";
 import Login from "./pages/public/Login/Login";
@@ -15,35 +18,38 @@ import ManagerHome from "./pages/Manager/ManagerHome/ManagerHome";
 import StaffRegister from "./pages/Staffs/Login/StaffRegister";
 import RegisterRestaurant from "./pages/Restaurant/Login/RegisterRestaurant";
 import LoginRestaurant from "./pages/Restaurant/Login/LoginRestaurant";
-
-import { QueryClient, QueryClientProvider } from "react-query";
 import ForgotPassword from "./pages/public/ForgetPassword/ForgetPassword";
+import CreatedRestaurant from "./pages/Restaurant/CreatedRestaurant";
+import CreatedStaffAccount from "./pages/Manager/CreatedStaffAccount/CreatedStaffAccount";
 
 const queryClient = new QueryClient();
 export const AppContext = createContext();
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [numDependingRe, setNumDependingRe] = useState(0);
   return (
     <QueryClientProvider client={queryClient}>
-      <AppContext.Provider value={{ user, setUser }}>
+      <AppContext.Provider
+        value={{ user, setUser, numDependingRe, setNumDependingRe }}
+      >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/restaurantdetail" element={<RestaurantDetail />} />
             <Route
-              path="/restaurantRegister"
-              element={<RegisterRestaurant />}
+              path="/createStaffAccount"
+              element={<CreatedStaffAccount />}
             />
-            <Route path="/restaurantLogin" element={<LoginRestaurant />} />
+            <Route path="/createdRestaurant" element={<CreatedRestaurant />} />
             <Route path="/userlogin" element={<Login />} />
             <Route path="/userregister" element={<Register />} />
             <Route path="/userforget" element={<ForgotPassword />} />
             <Route path="/bookinginfo" element={<BookingInfo />} />
             <Route path="/checkin" element={<Checkin />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/stafflogin" element={<StaffLogin />} />
-            <Route path="/staffRegister" element={<StaffRegister />} />
+            <Route path="/loginStaff" element={<StaffLogin />} />
+            <Route path="/registerStaff" element={<StaffRegister />} />
             <Route path="/managerlogin" element={<ManagerLogin />} />
             <Route path="/managerhome" element={<ManagerHome />} />
           </Routes>
