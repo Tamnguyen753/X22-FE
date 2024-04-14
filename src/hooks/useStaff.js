@@ -39,7 +39,7 @@ function useStaff() {
         confirmPassword,
       },
       method: "post",
-      url: "/staff/registerStaff",
+      url: "/auth/managerRegister",
     });
     toast.success("Đăng kí thành công!");
     navigate("/loginStaff");
