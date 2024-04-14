@@ -1,0 +1,20 @@
+
+.checkin-form{
+    width: 100%;
+    overflow-x: auto;
+    font-size: 10px;
+}
+.reservation-table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.reservation-table th, .reservation-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+@media (max-width: 600px) {
+    .checkin-form{
+      overflow-x: auto;
+    }
+  }

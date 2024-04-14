@@ -7,6 +7,7 @@ import ModalCreate from "./ModalCreate";
 import ModalInfo from "./ModalInfo";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { requestWithToken } from "../../../utils/axios-http";
 
 const Employeemanager = () => {
   const [isOpenCreate, setIsOpenCreate] = useState(false);
@@ -19,9 +20,10 @@ const Employeemanager = () => {
   useEffect(() => {
     const fetchStaffList = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:9000/api/staff/${restaurantId}`
-        );
+        const response = await requestWithToken({
+          url:"/staff",
+          method:"get"
+        })
         setStaffList(response.data.listStaff);
       } catch (error) {
         console.error("Lỗi khi lấy danh sách nhân viên:", error);
@@ -45,7 +47,7 @@ const Employeemanager = () => {
       <Button
         type="primary"
         danger
-        className="add-new"
+        className="add-new-employee"
         // onClick={() => setIsOpenCreate(true)}
         onClick={() => {
           navigate("/createStaffAccount");

@@ -17,7 +17,7 @@ td {
   border: 1px solid #ddd;
 }
 .info {
-  margin-top: 35px;
+  margin-top: 55px;
 }
 
 .react-icon-add {
@@ -29,8 +29,8 @@ td {
 .employee-list {
   position: relative;
 }
-.add-new {
+.add-new-employee {
   position: absolute;
-  top: 40px;
+  top: 50px;
   right: 0;
 }

@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import ErrorsMessage from "../../Components/ErrorMessages/index.js";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { request } from "../../../utils/axios-http.js";
 
 const schema = yup.object().shape({
   username: yup.string().trim().required("Tên đăng nhập không được bỏ trống"),
@@ -39,14 +40,11 @@ const Register = () => {
   const onSubmit = async (data) => {
     const { username, password, firstName, lastName, email, phone } = data;
     try {
-      await axios.post("http://localhost:9000/api/user/register", {
-        username,
-        password,
-        firstName,
-        lastName,
-        email,
-        phone,
-      });
+      await request({
+        data:{ username, password, firstName, lastName, email, phone } ,
+        method:"post",
+        url:"/auth/register"
+      })
       await notify.info("Dằng ký tài khoản thành công");
       navigate("/userlogin");
     } catch (error) {

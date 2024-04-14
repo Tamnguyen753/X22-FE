@@ -11,8 +11,9 @@ import {
 } from "@ant-design/icons";
 
 import ListMenu from "../../Components/Menu/index.js";
-import Reservation from "../../Components/Reservation/index.js";
 import AppContext from "antd/es/app/context.js";
+import BookingInfo from "../../Staffs/BookingInfo/BookingInfo.js";
+import Checkin from "../../Staffs/Checkin/Checkin.js";
 // import RestaurantDetail from "../../public/RestaurantDetail/RestaurantDetail.js";
 const ManagerHome = () => {
   const { user } = useContext(AppContext);
@@ -37,6 +38,7 @@ const ManagerHome = () => {
     getItem("Danh sách thực đơn", "2", <MenuFoldOutlined />),
     getItem("Yêu cầu đặt bàn", "3", <WechatWorkOutlined />),
     getItem("Thông tin nhân viên", "4", <UserOutlined />),
+    getItem("Checkin/Checkout đơn hàng", "5", <WechatWorkOutlined />),
   ];
   const onClick = (e) => {
     setSelectedItem(e.key);
@@ -60,13 +62,14 @@ const ManagerHome = () => {
             inlineIndent={0}
           />
         </div>
-        <div className="content">
+        <div className="management-content">
           {selectedItem ? (
             <div>
               <h3 className="content-name">{selectedItem.name}</h3>
               {selectedItem == 4 && <Employeemanager />}
-              {selectedItem == 3 && <Reservation />}
+              {selectedItem == 3 && <BookingInfo />}
               {selectedItem == 2 && <ListMenu />}
+              {selectedItem == 5 && <Checkin />}
               {/* {selectedItem == 1 && <RestaurantDetail />} */}
             </div>
           ) : (
