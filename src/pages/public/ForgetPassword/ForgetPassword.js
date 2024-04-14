@@ -6,6 +6,7 @@ import * as yup from "yup";
 import axios from "axios";
 import ErrorsMessage from "../../Components/ErrorMessages/index.js";
 import "./style.css";
+import { request } from "../../../utils/axios-http.js";
 
 const schema = yup.object().shape({
   username: yup.string().trim().required("Tên đăng nhập không được bỏ trống"),
@@ -24,9 +25,10 @@ const ForgotPassword = () => {
   const onSubmit = async (data) => {
     try {
       const { username } = data;
-      await axios.post("http://localhost:3000/api/user/forgetpassword", {
-        username,
-      });
+      await request({
+        data:{username},
+        method:"post",
+        url:"/auth/forgetpassword"})
       notify.info("Vui lòng kiểm tra Email");
     } catch (error) {
       message.error("Đã xảy ra lỗi. Vui lòng thử lại sau.");

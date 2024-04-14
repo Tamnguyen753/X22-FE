@@ -9,6 +9,7 @@ import ErrorsMessage from "../../Components/ErrorMessages/index.js";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
+import { request } from "../../../utils/axios-http.js";
 
 const schema = yup.object().shape({
   username: yup
@@ -33,12 +34,13 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    const { username, password } = data;
+    const { username, password , loginTypeValue=2 } = data;
     try {
-      const res = await axios.post("http://localhost:9000/api/user/login", {
-        username,
-        password,
-      });
+      const res = await request({
+        data:{username,password,loginTypeValue},
+        method:"post",
+        url:"/auth/login"
+      })
       const token = JSON.stringify(res.data.data);
       localStorage.setItem("access_token", token);
       await notify.info("Đăng nhập thành công");
@@ -51,6 +53,8 @@ const Login = () => {
         console.error(error);
         message.error("Đã xảy ra lỗi. Vui lòng thử lại sau.");
       }
+      message.error("Đã xảy ra lỗi. Vui lòng thử lại sau.");
+      console.log(error);
     }
   };
   return (
@@ -62,7 +66,7 @@ const Login = () => {
       }}
     >
       {contextHolder}
-      <div className="login">
+      <div className="user-login">
         <h1>Đăng nhập tài khoản</h1>
         <div className="form-item">
           <span>Tên đăng nhập</span>

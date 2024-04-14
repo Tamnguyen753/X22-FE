@@ -16,22 +16,13 @@ function useStaff() {
       url: "/auth/login",
     });
 
-    console.log(res);
-
-    const { accessToken, type, loginTypeValue, staff } = res.data;
-    // console.log( accessToken, type);
-
+    const { accessToken } = res.data;
     localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("type", type);
-    localStorage.setItem("loginTypeValue", loginTypeValue);
 
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("type", type);
+    await getMe();
 
     toast.success("Đăng nhập thành công!");
-    setUser(staff);
-    console.log(staff);
-    navigate("/createdRestaurant");
+    // navigate("/createdRestaurant");
     // navigate("/createStaffAccount");
     // navigate("/");
     // getMe();
@@ -56,9 +47,9 @@ function useStaff() {
 
   const getMe = async () => {
     const res = await requestWithToken({
-      url: "/staff/me",
+      url: "/auth/profile",
     });
-    setUser(res.data);
+    setUser(res.data.staff);
   };
 
   const logOut = () => {

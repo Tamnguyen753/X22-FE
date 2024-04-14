@@ -1,19 +1,15 @@
 import React, { useContext } from "react";
 import "./style.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Avatar, Button, Tooltip } from "antd";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 import useStaff from "../../../../hooks/useStaff";
 import { AppContext } from "../../../../App";
 
 const Header = () => {
-  const { numDependingRe } = useContext(AppContext);
-  const { name, type, email } = {
-    name: "mai van nam",
-    type: "staff",
-    email: "nam99@gmail.com",
-  };
-
+  const { user } = useContext(AppContext)
+  const navigate = useNavigate()
+  console.log(user);
   const { logOut } = useStaff(); // Gọi hàm useStaff()
 
   return (
@@ -25,9 +21,9 @@ const Header = () => {
             style={{ width: "90px", height: "50px" }}
           />
         </div>
-        <div className="items">
+        {user.name ?         <div className="items">
           <div className="staff-icon">
-            <Tooltip title={type} placement="bottom">
+            <Tooltip title={user.type} placement="bottom">
               <Avatar
                 style={{
                   backgroundColor: "#87d068",
@@ -36,12 +32,8 @@ const Header = () => {
               />
             </Tooltip>
             <div className="staff-info">
-              <span>{name}</span>
+              <span>{user.name}</span>
             </div>
-          </div>
-          <div className="depending-reservation">
-            <ShoppingCartOutlined className="icon" />
-            <div className="count">{numDependingRe}</div>
           </div>
           <div>
             <Button type="primary" danger onClick={logOut}>
@@ -49,6 +41,9 @@ const Header = () => {
             </Button>
           </div>
         </div>
+        : <div>
+          <Button type="primary" onClick={()=>{  navigate("/loginStaff");}}>Đăng nhập</Button>
+          </div>}
       </div>
     </div>
   );
