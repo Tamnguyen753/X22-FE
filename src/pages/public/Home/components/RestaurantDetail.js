@@ -6,7 +6,7 @@ const RestaurantDetail = ({ restaurant, handleRestaurant }) => {
     const rateStars = Array.from({ length: restaurant.rate }, (_, index) => index + 1);
     return (
         <div className='detail' onClick={() => handleRestaurant(restaurantId)}>
-            <div className='restaurantdetail'>
+            <div className='restaurantdetail1'>
                 <img src={restaurant.image[0]}></img>
                 <p className='name'>{restaurant.name}</p>
                 <div className='info'>

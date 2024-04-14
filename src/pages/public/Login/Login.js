@@ -34,12 +34,12 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    const { username, password , loginTypeValue=2 } = data;
+    const { username, password, loginTypeValue = 2 } = data;
     try {
       const res = await request({
-        data:{username,password,loginTypeValue},
-        method:"post",
-        url:"/auth/login"
+        data: { username, password, loginTypeValue },
+        method: "post",
+        url: "/auth/login"
       })
       const token = JSON.stringify(res.data.data);
       localStorage.setItem("access_token", token);

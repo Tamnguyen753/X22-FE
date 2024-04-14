@@ -43,7 +43,7 @@ const ReviewForm = ({ restaurantId, onSubmit }) => {
                     />
                 ))}
             </div>
-            <button type="submit">Gửi</button>
+            <button style={{ width: "100px" }} type="submit">Gửi</button>
         </form>
     );
 };

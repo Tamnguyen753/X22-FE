@@ -9,7 +9,7 @@ const Header = () => {
         navigate('/');
     };
     const handleStaffLogin = () => {
-        navigate('/restaurantLogin');
+        navigate('/loginStaff');
     };
     const handleUserLogin = () => {
         navigate('/userlogin');
