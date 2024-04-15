@@ -27,3 +27,32 @@
     height: 30px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+/* css */
+/* Header.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header img {
+    width: 150px;
+    cursor: pointer;
+}
+
+.login-btn button {
+    margin-left: 10px;
+}
+
+.login-btn span {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.login-btn button,
+.login-btn span {
+    font-size: 14px;
+}
