@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const BookingInfo = () => {
   const [bookingRequests, setBookingRequests] = useState([]);
-  const { fetchBookingRequests, acceptRevation,rejectRevation,rePendingRevation } = useRevation()
+  const { fetchBookingRequests, acceptRevation, rejectRevation, rePendingRevation } = useRevation()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,7 +110,7 @@ const BookingInfo = () => {
                       </>
                     )}
                     {bookingRequest.status !== "pending" && (
-                      <Button type="primary" size="small" style={{ marginRight: "10px" }}  onClick={() => handlePending(bookingRequest._id, index)}>
+                      <Button type="primary" size="small" style={{ marginRight: "10px" }} onClick={() => handlePending(bookingRequest._id, index)}>
                         Hoàn tác
                       </Button>
                     )}

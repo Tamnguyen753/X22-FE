@@ -10,7 +10,7 @@ const Checkin = () => {
   const [selectedReservation, setSelectedReservation] = useState(null);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const {checkoutRevation} = useRevation();
+  const { checkoutRevation } = useRevation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -115,7 +115,7 @@ const Checkin = () => {
                   {booking.menus.reduce((total, menu) => total + menu.total, 0)}
                 </td>
                 <th>
-                  {booking.status =="accepted" && (
+                  {booking.status == "accepted" && (
                     <Button
                       type="primary"
                       onClick={() => handleCheckin(booking)}
@@ -123,7 +123,7 @@ const Checkin = () => {
                       Checkin
                     </Button>
                   )}
-                  {booking.status =="checkIn" && (
+                  {booking.status == "checkIn" && (
                     <Button
                       type="primary"
                       danger
