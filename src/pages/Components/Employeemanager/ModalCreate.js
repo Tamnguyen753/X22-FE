@@ -28,7 +28,7 @@ export default function ModalCreate() {
             password,
           },
           method: "post",
-          url: "http://localhost:9000/api/staff",
+          url: "https://x22-be-3.onrender.com/api/staff",
         },
         token
       );
