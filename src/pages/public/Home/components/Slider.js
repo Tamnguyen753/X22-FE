@@ -28,10 +28,10 @@ const Slider = () => {
                     <img src="https://static-assets.diningcity.asia/DC%20homepage%20banner%20web-EN.jpg" alt="Ảnh 1" width="1530px" height="350" className='img1' />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src="https://static-assets.diningcity.asia/DC%20homepage%20banner%20web-EN.jpg" alt="Ảnh 2" width="1530px" height="350" className='img1' />
+                    <img src="https://static-assets.diningcity.asia/system%2Fckeditor_assets%2Fpictures%2F1813%2FDC_Banner_final_EN.jpg" alt="Ảnh 2" width="1530px" height="350" className='img1' />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src="https://static-assets.diningcity.asia/DC%20homepage%20banner%20web-EN.jpg" alt="Ảnh 3" width="1530px" height="350" className='img1' />
+                    <img src="https://assets.diningcity.cn/1711958987112" alt="Ảnh 3" width="1530px" height="350" className='img1' />
                 </SwiperSlide>
             </Swiper>
         </div>

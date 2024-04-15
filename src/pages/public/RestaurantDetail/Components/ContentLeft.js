@@ -12,6 +12,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { request } from '../../../../utils/axios-http';
 
 
 const ContentLeft = ({ restaurant, newReviewText, setNewReviewText, reviews, setReviews }) => {
@@ -21,7 +22,11 @@ const ContentLeft = ({ restaurant, newReviewText, setNewReviewText, reviews, set
 
     const fetchCommentsByRestaurantId = async (restaurantId) => {
         try {
-            const response = await axios.get(`http://localhost:9000/api/auth/comment/${restaurantId}`);
+            // const response = await axios.get(`http://localhost:9000/api/auth/comment/${restaurantId}`);
+            const response = await request({
+                method: "get",
+                url: `/auth/comment/${restaurantId}`
+            })
             setReviews(response.data);
             console.log(response.data);
         } catch (error) {
@@ -31,7 +36,8 @@ const ContentLeft = ({ restaurant, newReviewText, setNewReviewText, reviews, set
 
     const handleReviewSubmit = async (comment, rating) => {
         try {
-            const response = await axios.post('http://localhost:9000/api/auth/comment', { comment, rating, restaurantId: restaurant._id });
+            const response = await axios.post('https://x22-be-3.onrender.com/api/auth/comment', { comment, rating, restaurantId: restaurant._id });
+
             setReviews([...reviews, response.data]); // Cập nhật danh sách bình luận với bình luận mới
         } catch (error) {
             console.error('Error submitting comment:', error);
@@ -41,7 +47,7 @@ const ContentLeft = ({ restaurant, newReviewText, setNewReviewText, reviews, set
     const [menu, setMenu] = useState([]);
     const fetchMenuByRestaurantId = async (restaurantId) => {
         try {
-            const response = await axios.get(`http://localhost:9000/api/menu?restaurantId=${restaurantId}`);
+            const response = await axios.get(`https://x22-be-3.onrender.com/api/menu?restaurantId=${restaurantId}`);
             console.log("menu:", response.data.data);
             const menudata = response.data.data
             setMenu(menudata)
@@ -59,6 +65,7 @@ const ContentLeft = ({ restaurant, newReviewText, setNewReviewText, reviews, set
         console.log("Menu:", menu);
     }, [menu]);
     const sortedReviews = reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    console.log(reviews.createdAt);
 
 
     return (
@@ -139,8 +146,10 @@ const ContentLeft = ({ restaurant, newReviewText, setNewReviewText, reviews, set
                                                 <StarFilled key={index} style={{ color: "#ee4d2d" }} />
                                             ))}
                                             <span>{reviews.createdAt}</span>
+
                                         </div>
                                         <li style={{ listStyleType: "none" }}>{reviews.comment}</li>
+                                        {/* `${reviews.createdAt.getFullYear()}-${reviews.createdAt.getMonth() + 1}-${reviews.createdAt.getDate()} ${reviews.createdAt.getHours()}:${reviews.createdAt.getMinutes()}:00` */}
 
                                     </div>
                                 </div>

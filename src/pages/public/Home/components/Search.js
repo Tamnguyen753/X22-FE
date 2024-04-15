@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Input, Button, AutoComplete, Select } from 'antd';
+import { request } from '../../../../utils/axios-http';
 const { Search } = Input;
 
 const SearchWeb = ({ onSearch }) => {
@@ -20,7 +21,11 @@ const SearchWeb = ({ onSearch }) => {
     const fetchOptions = async (value) => {
         try {
             // Simulate fetching options from server
-            const response = await fetch(`http://localhost:9000/api/restaurant?keyword=${value}`);
+            const response = await fetch(`https://x22-be-3.onrender.com/api/restaurant?keyword=${value}`);
+            // const response = await request({
+            //     method: "get",
+            //     url: `/restaurant?keyword=${value}`
+            // })
             const data = await response.json();
 
             console.log(data);
@@ -60,7 +65,7 @@ const SearchWeb = ({ onSearch }) => {
 
             <Button
                 type="primary"
-                style={{ backgroundColor: "red", color: "white", height: "35px", marginLeft: "10px", borderRadius: "5px", overflow: "hidden" }}
+                className='btntam'
                 onClick={handleSearchSubmit}
             >
                 Tìm kiếm

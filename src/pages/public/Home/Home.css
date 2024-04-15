@@ -8,26 +8,27 @@
     width:1530px ;
     height:450px
 }
-.restaurantdetail img {
-    width: 200px;
+.restaurantdetail1 img {
+    width: 250px;
     height: 200px;
 }
-.restaurantdetail{
+.restaurantdetail1{
     font-size: medium;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    width: fit-content;
+    width: 250px;
     height: 350px;
     border-radius: 10px;
     overflow: hidden;
 
 }
-.restaurantdetail .info{
+.restaurantdetail1 .info{
     padding: 0px 20px;
     flex-direction: column;
     display: flex;
     gap: 8px;
+    display: inline-block;
 }
-.restaurantdetail .info p{
+.restaurantdetail1 .info p{
     margin: 0px;
 }
 /* .restaurantdetail p{
@@ -73,7 +74,6 @@
 .name {
     font-weight: bold;
     padding-top: 10px;
-    padding-left: 20px;
     font-size: 25px;
 }
 
@@ -84,4 +84,13 @@
 
 .value {
     font-weight: normal;
+}
+.btntam {
+    background-color: "red"; 
+    color: "white"; 
+    height: "35px"; 
+    margin-left: "10px"; 
+    border-radius: "5px"; 
+    overflow: "hidden";
+    width: fit-content;
 }

@@ -1,75 +1,120 @@
-import React, { useState, useEffect } from "react";
-import { request } from "../../../utils/axios-http";
-import { Button } from "antd";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "../../../App";
+import { requestWithToken } from "../../../utils/axios-http";
+import Swal from 'sweetalert2';
 
 const ListMenu = () => {
-  const [menuData, setMenuData] = useState([]);
-  const navigate = useNavigate();
+  const { user } = useContext(AppContext);
+  const [menu, setMenu] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    price: "",
+    type: ""
+  });
+  const [showForm, setShowForm] = useState(false); // Biến trạng thái để điều khiển việc hiển thị form
 
   useEffect(() => {
-    // Parse user from localStorage
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    const restaurantId = user.restaurantId;
+    const fetchMenu = async () => {
+      if (!user || !user.restaurantId) {
+        setLoading(false);
+        return;
+      }
 
-    const fetchData = async () => {
       try {
-        const response = await request({
-          url: "/menu",
+        const response = await requestWithToken({
           method: "get",
-          params: { restaurantId },
+          url: `/menu?restaurantId=${user.restaurantId}`
         });
-        setMenuData(response.data.data);
+        setMenu(response.data.data);
       } catch (error) {
-        console.error("đã xảy ra lỗi", error);
+        setError(error.message || "Something went wrong!");
+      } finally {
+        setLoading(false);
       }
     };
 
-    if (restaurantId) {
-      fetchData();
-    } else {
-      console.warn("No restaurantId found in localStorage.");
+    fetchMenu();
+  }, [user]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await requestWithToken({
+        method: "post",
+        url: "/menu",
+        data: {
+          ...formData,
+          restaurantId: user.restaurantId
+        }
+      });
+      // Add newly created menu item to the menu list
+      setMenu(prevMenu => [...prevMenu, response.data.data]);
+      // Reset form data
+      setFormData({
+        name: "",
+        price: "",
+        type: ""
+      });
+      // Show success message
+      Swal.fire({
+        icon: "success",
+        title: "Menu item created successfully!",
+      });
+      // Ẩn form sau khi tạo menu thành công
+      setShowForm(false);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
-  }, []);
+  };
 
   return (
-    <div className="menus-list" style={{position:"relative"}}>
-      <Button
-        type="primary"
-        style={{width:"150px",  marginBottom: "20px",position:"absolute",right:"0",top:"-1px" }}
-        onClick={() => navigate("/createMenu")}
-      >
-        Thêm món ăn
-      </Button>
-      <h2>Menu List</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Price</th>
-            <th>Unit</th>
-            <th>Description</th>
-            <th>Discount (%)</th>
-            <th>Image</th>
-          </tr>
-        </thead>
-        <tbody>
-          {menuData.map((menu, index) => (
-            <tr key={index}>
-              <td>{menu.name}</td>
-              <td>{menu.type}</td>
-              <td>${menu.price}</td>
-              <td>{menu.unit}</td>
-              <td>{menu.describe}</td>
-              <td>{menu.discount}%</td>
-              <td>
-                <img src={menu.image} alt={menu.name} style={{ maxWidth: '100px' }} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <h2>Menu</h2>
+      {!showForm && (
+        <button onClick={() => setShowForm(true)}>Add Menu</button>
+      )}
+      {showForm && (
+        <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
+          <div className="form-group">
+            <label htmlFor="name">Name:</label>
+            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="price">Price:</label>
+            <input type="text" id="price" name="price" value={formData.price} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label htmlFor="type">Type:</label>
+            <input type="text" id="type" name="type" value={formData.type} onChange={handleChange} required />
+          </div>
+          <button type="submit">Create Menu</button>
+          <button type="button" onClick={() => setShowForm(false)}>Cancel</button>
+        </form>
+      )}
+      <div className="menu-grid">
+        {menu.map(item => (
+          <div key={item.id} className="menu-item">
+            <h3>{item.name}</h3>
+            <p><strong>Price:</strong> {item.price}</p>
+            <p><strong>Unit:</strong> {item.unit}</p>
+            <p><strong>Type:</strong> {item.type}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
