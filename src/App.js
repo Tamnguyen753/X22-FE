@@ -23,6 +23,7 @@ import CreatedStaffAccount from "./pages/Manager/CreatedStaffAccount/CreatedStaf
 import UpdateRestaurant from "./pages/Restaurant/RestaurantUpdate";
 
 import Layout from "./shared/layout/Layout";
+import CreateMenu from "./pages/Components/Menu/CreateMenu";
 
 const queryClient = new QueryClient();
 export const AppContext = createContext();
@@ -45,13 +46,17 @@ const StaffRouter = () => {
 }
 
 const App = () => {
-  const [user, setUser] = useState({ authenticating: true });
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user?.authenticating) {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+  useEffect(() => {
 
-    } else {
       if(user?.type == "manager"){
         if(!user?.restaurantId){
           navigate("/createdRestaurant")
@@ -61,7 +66,6 @@ const App = () => {
       // else(user?.type == "manager" || user?.type == "staff") {
       //   navigate('/managerhome');
       // }
-    }
   }, [user]);
 
   return (
@@ -79,6 +83,7 @@ const App = () => {
           <Route path="/restaurant/:restaurantId" element={<Layout><RestaurantDetail /></Layout>} />
 
           <Route path="/createStaffAccount" element={<CreatedStaffAccount />} />
+          <Route path="/createMenu" element={<CreateMenu />} />
           <Route path="/createdRestaurant" element={<CreatedRestaurant />} />
           <Route path="/updatedRestaurant" element={<UpdateRestaurant />} />
           <Route path="/checkin" element={<Checkin />} />
