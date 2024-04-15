@@ -52,10 +52,15 @@ const App = () => {
     if (user?.authenticating) {
 
     } else {
-
-      if (user?.type == "manager" || user?.type == "staff") {
-        navigate('/managerhome');
+      if(user?.type == "manager"){
+        if(!user?.restaurantId){
+          navigate("/createdRestaurant")
+        }
+        else( navigate('/managerhome'))
       }
+      // else(user?.type == "manager" || user?.type == "staff") {
+      //   navigate('/managerhome');
+      // }
     }
   }, [user]);
 
