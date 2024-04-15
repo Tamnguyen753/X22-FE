@@ -6,25 +6,72 @@ function useRevation() {
     try {
       const response = await requestWithToken({
         url: `/reservation/staffGetReservations`,
-        method:"post"
+        method:"get"
       });
-      console.log(response);
       return response.data;
     } catch (error) {
-      console.error(error);
+      console.error("đã xảy ra lỗi",error);
     }
   };
   const acceptRevation = async(reservationId)=>{
     try {
       const response = await requestWithToken({
-        url: `/reservation/accept-reservation/:${reservationId}`,
+        url: `/reservation/accept-reservation/${reservationId}`,
         method:"post"
       });
-      console.log(response);
     } catch (error) {
-      console.error(error);
+      console.error("đã xảy ra lỗi",error);
     }
   }
-  return { fetchBookingRequests,acceptRevation };
+  const rejectRevation = async(reservationId)=>{
+    try {
+      const response = await requestWithToken({
+        url: `/reservation/reject-reservation/${reservationId}`,
+        method:"post"
+      });
+    } catch (error) {
+      console.error("đã xảy ra lỗi",error);
+    }
+  }
+  const rePendingRevation = async(reservationId)=>{
+    try {
+      const response = await requestWithToken({
+        url: `/reservation/repending-reservation/${reservationId}`,
+        method:"post"
+      });
+    } catch (error) {
+      console.error("đã xảy ra lỗi",error);
+    }
+  }
+  const checkinRevation = async (reservationId, selectedTable, selectedMenus) => {
+    try {
+      const response = await requestWithToken({
+        url: `/reservation/checkin-reservation/${reservationId}`,
+        method: "post",
+        data: {
+          tableIds: selectedTable,
+          menus:selectedMenus
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("đã xảy ra lỗi", error);
+      throw error;
+    }
+  };
+  const checkoutRevation = async (reservationId) => {
+    const _id = reservationId._id
+    try {
+      const response = await requestWithToken({
+        url: `/reservation/checkout-reservation/${_id}`,
+        method: "post",
+      });
+      return response.data;
+    } catch (error) {
+      console.error("đã xảy ra lỗi", error);
+      throw error;
+    }
+  };
+  return { checkoutRevation,fetchBookingRequests,acceptRevation ,rejectRevation,rePendingRevation,checkinRevation};
 }
 export default useRevation;

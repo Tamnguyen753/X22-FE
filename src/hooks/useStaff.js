@@ -50,10 +50,12 @@ function useStaff() {
       url: "/auth/profile",
     });
     setUser(res.data.staff);
+    localStorage.setItem("user", JSON.stringify(res.data.staff));
   };
 
   const logOut = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
     setUser(null);
   };
 

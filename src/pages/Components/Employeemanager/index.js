@@ -48,7 +48,7 @@ const Employeemanager = () => {
         type="primary"
         danger
         className="add-new-employee"
-        // onClick={() => setIsOpenCreate(true)}
+        style={{width:"140px"}}
         onClick={() => {
           navigate("/createStaffAccount");
         }}

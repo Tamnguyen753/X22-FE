@@ -7,11 +7,9 @@ import useStaff from "../../../../hooks/useStaff";
 import { AppContext } from "../../../../App";
 
 const Header = () => {
-  const { user } = useContext(AppContext)
-  const navigate = useNavigate()
-  console.log(user);
-  const { logOut } = useStaff(); // Gọi hàm useStaff()
-
+  const { user } = useContext(AppContext);
+  const navigate = useNavigate();
+  const { logOut } = useStaff();
   return (
     <div className="header">
       <div className="wrapper">
@@ -21,29 +19,39 @@ const Header = () => {
             style={{ width: "90px", height: "50px" }}
           />
         </div>
-        {user.name ?         <div className="items">
-          <div className="staff-icon">
-            <Tooltip title={user.type} placement="bottom">
-              <Avatar
-                style={{
-                  backgroundColor: "#87d068",
-                }}
-                icon={<UserOutlined />}
-              />
-            </Tooltip>
-            <div className="staff-info">
-              <span>{user.name}</span>
+        {user ? (
+          <div className="items">
+            <div className="staff-icon">
+              <Tooltip title={user.type} placement="bottom">
+                <Avatar
+                  style={{
+                    backgroundColor: "#87d068",
+                  }}
+                  icon={<UserOutlined />}
+                />
+              </Tooltip>
+              <div className="staff-info">
+                <span>{user.name}</span>
+              </div>
+            </div>
+            <div>
+              <Button type="primary" danger onClick={logOut}>
+                Đăng xuất
+              </Button>
             </div>
           </div>
+        ) : (
           <div>
-            <Button type="primary" danger onClick={logOut}>
-              Đăng xuất
+            <Button
+              type="primary"
+              onClick={() => {
+                navigate("/loginStaff");
+              }}
+            >
+              Đăng nhập
             </Button>
           </div>
-        </div>
-        : <div>
-          <Button type="primary" onClick={()=>{  navigate("/loginStaff");}}>Đăng nhập</Button>
-          </div>}
+        )}
       </div>
     </div>
   );
